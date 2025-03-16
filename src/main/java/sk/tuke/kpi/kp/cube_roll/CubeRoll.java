@@ -7,14 +7,15 @@ import sk.tuke.kpi.kp.cube_roll.core.MapFactory;
 import java.util.Scanner;
 
 public class CubeRoll {
-    public static final String RESET = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\033[38;5;227m";
-    public static final String VIOLET = "\033[38;5;13m";
-    public static final String LIGHTPINK = "\033[38;5;217m";
-    public static final String LIGHTGREEN ="\033[38;5;10m";
-    public static final String BLUE = "\033[38;5;27m";
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\033[38;5;227m";
+    private static final String VIOLET = "\033[38;5;13m";
+    private static final String LIGHTPINK = "\033[38;5;217m";
+    private static final String LIGHTGREEN ="\033[38;5;10m";
+    //private static final String PURPLE = "\033[38;5;57m";
+    private static final String BLUE = "\033[38;5;27m";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -55,7 +56,7 @@ public class CubeRoll {
         }
 
     }
-    public static void startNewGame(Scanner scanner){
+    private static void startNewGame(Scanner scanner){
         System.out.println(VIOLET + "==================="+ RESET);
         System.out.println(LIGHTPINK + "Zadaj meno hráča:" + RESET);
         String playerName;

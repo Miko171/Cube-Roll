@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUI {
-    public static final String RESET = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\033[38;5;227m";
-    public static final String VIOLET = "\033[38;5;13m";
-    public static final String LIGHTPINK = "\033[38;5;217m";
-    public static final String LIGHTGREEN ="\033[38;5;10m";
-    public static final String PURPLE = "\033[38;5;57m";
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\033[38;5;227m";
+    private static final String VIOLET = "\033[38;5;13m";
+    private static final String LIGHTPINK = "\033[38;5;217m";
+    private static final String LIGHTGREEN ="\033[38;5;10m";
+    private static final String PURPLE = "\033[38;5;57m";
 
     private Field field;
     private final Scanner scanner;

@@ -1,6 +1,10 @@
 package sk.tuke.kpi.kp.cube_roll.core;
 
 public class Field {
+
+    private static final String LIGHTGREEN ="\033[38;5;10m";
+    private static final String RESET = "\u001B[0m";
+
     private Tile[][] field;
     private int rowCount;
     private int columnCount;
@@ -53,23 +57,22 @@ public class Field {
 
 
     }
-
-
+    // field gettery
     public int getRowCount() {
         return rowCount;
     }
-
     public int getColumnCount() {
         return columnCount;
     }
-
+    // dice gettery
     public int getDiceCol() {
         return diceCol;
     }
+    public int getDiceRow() {return diceRow;}
+    // FinishTile gettery
+    public int getFinishR() {return finishR;}
+    public int getFinishC() {return finishC;}
 
-    public int getDiceRow() {
-        return diceRow;
-    }
     public boolean isFinishTile(){  // ci je pod kockou dlazdica Finish
         return field[diceRow][diceCol] instanceof FinishTile;
     }
@@ -81,47 +84,29 @@ public class Field {
         return field[row][col] instanceof WallTile;
     }
 
-    public int getFinishR() {
-        return finishR;
-    }
-    public int getFinishC() {
-        return finishC;
-    }
 
-    public void setTile(int row, int col, Tile tile) {
-        field[row][col] = tile;
-    }
 
-    public int getLivesCount() {
-        return livesCount;
-    }
+    public void setTile(int row, int col, Tile tile) { field[row][col] = tile;}
 
-    public void setLivesCount(int livesCount) {
-        this.livesCount = livesCount;
-    }
-
-    public int getMaxLives() {
-        return maxLives;
-    }
-
-    public void setMaxLives(int maxLives) {
-        this.maxLives = maxLives;
-    }
-
+    public int getLivesCount() { return livesCount;}
+    public void setLivesCount(int livesCount) { this.livesCount = livesCount;}
+    public int getMaxLives() { return maxLives;}
+    public void setMaxLives(int maxLives) { this.maxLives = maxLives;}
+    // znizovanie zivotov vypis
     public void loseLife(){
         livesCount--;
         if (livesCount < 5 && livesCount > 1 ){
-            System.out.println("--Pozor stratil si život ostávajú ti len " + livesCount + " životy");
+            System.out.println(LIGHTGREEN + "--Pozor stratil si život ostávajú ti len " + livesCount + " životy" + RESET);;
         }
         else if (livesCount > 5 ) {
-            System.out.println("--Pozor stratil si život ostáva ti len " + livesCount + " životov");
+            System.out.println(LIGHTGREEN + "--Pozor stratil si život ostáva ti len " + livesCount + " životov" + RESET);
         }
         else if (livesCount == 1){
-            System.out.println("--Pozor stratil si život ostáva ti len " + livesCount + " život");
+            System.out.println(LIGHTGREEN + "--Pozor stratil si život ostáva ti len " + livesCount + " život" + RESET);
         }
 
     }
-
+    // Pohyb kocky po fielde
     public void moveDice(char direction){
         lastDirection = direction;
         int newRow = diceRow;
@@ -151,7 +136,7 @@ public class Field {
         dice.rollDice(direction);
         }
         else {
-            System.out.println("--Zlý smer pohybu--!");
+            System.out.println(LIGHTGREEN + "-- Zlý smer pohybu --!" + RESET);
         }
 
     }

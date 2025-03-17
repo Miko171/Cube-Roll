@@ -266,7 +266,7 @@ public class ConsoleUI {
                 score = 0;
                 return score;
             case 2:
-                if(movesCount < 10){
+                if(movesCount < 11){
                     score  = 100;
                 } else if (movesCount < 15) {
                     score  = 50;

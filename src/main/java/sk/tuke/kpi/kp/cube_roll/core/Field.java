@@ -83,9 +83,6 @@ public class Field {
     public boolean isWallTile(int row,int col){
         return field[row][col] instanceof WallTile;
     }
-
-
-
     public void setTile(int row, int col, Tile tile) { field[row][col] = tile;}
 
     public int getLivesCount() { return livesCount;}

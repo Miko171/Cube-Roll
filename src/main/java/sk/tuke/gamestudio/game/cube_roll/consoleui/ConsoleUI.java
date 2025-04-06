@@ -1,14 +1,13 @@
-package sk.tuke.kpi.kp.cube_roll.consoleui;
+package sk.tuke.gamestudio.game.cube_roll.consoleui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.entity.Comment;
 import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.Score;
-import sk.tuke.gamestudio.service.CommentServiceJDBC;
-import sk.tuke.gamestudio.service.RatingServiceJDBC;
-import sk.tuke.gamestudio.service.ScoreServiceJDBC;
-import sk.tuke.kpi.kp.cube_roll.core.Field;
-import sk.tuke.kpi.kp.cube_roll.core.GameState;
-import sk.tuke.kpi.kp.cube_roll.core.MapFactory;
+import sk.tuke.gamestudio.service.*;
+import sk.tuke.gamestudio.game.cube_roll.core.Field;
+import sk.tuke.gamestudio.game.cube_roll.core.GameState;
+import sk.tuke.gamestudio.game.cube_roll.core.MapFactory;
 
 import java.util.Date;
 import java.util.List;
@@ -23,26 +22,38 @@ public class ConsoleUI {
     private static final String LIGHTPINK = "\033[38;5;217m";
     private static final String LIGHTGREEN ="\033[38;5;10m";
     private static final String PURPLE = "\033[38;5;57m";
+    private static final String BLUE = "\033[38;5;27m";
 
     private Field field;
     private final Scanner scanner;
     private GameState gameState;
-    private final int map;
+    private int map;
     private int movesCount;
-    private final String  playerName;
+    private  String  playerName;
 
-    public ConsoleUI( Field field, int map, String playerName ) {
+    @Autowired
+    private ScoreService scoreService;
+
+    @Autowired
+    private RatingService ratingService;
+
+    @Autowired
+    private CommentService commentService;
+
+
+    public ConsoleUI( ) {
         this.scanner = new Scanner(System.in);
-        this.field = field;
         this.gameState = GameState.RUNNING;
-        this.map = map;
         this.movesCount = 0;
-        this.playerName = playerName;
-
     }
 
     public void play(){
+
         boolean again = true;
+
+        showMenu();
+
+
         while(again){
             while (gameState == GameState.RUNNING){
                 show();
@@ -301,8 +312,10 @@ public class ConsoleUI {
         }
     }
     private void handleTopScores() {
-        ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC(); //instancia
-        List<Score> topScores = scoreServiceJDBC.getTopScores("Cube Roll");
+        //ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC(); //instancia
+
+        //List<Score> topScores = scoreServiceJDBC.getTopScores("Cube Roll");
+        List<Score> topScores = scoreService.getTopScores("Cube Roll");
         System.out.println(VIOLET + "============================");
         System.out.println(RED + "-- MENO HRÁČA    |  SKÓRE --");
         System.out.println(VIOLET + "============================");
@@ -318,35 +331,39 @@ public class ConsoleUI {
     }
 
     private void handleScore() {
-        ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC();
+        //ScoreServiceJDBC scoreServiceJDBC = new ScoreServiceJDBC();
+        //ScoreServiceJPA scoreServiceJPA = new ScoreServiceJPA();
         //System.out.println("--Ukladám skóre do databázy--");
         Score score = new Score("Cube Roll",playerName, getPlayerScore(),new Date());
-        scoreServiceJDBC.addScore(score);
+        scoreService.addScore(score);
+        //scoreServiceJDBC.addScore(score);
         //System.out.println("--Skóre uložené--");
     }
 
     private void handleComment(){
         System.out.println(PURPLE + "--Sem napíš svoj komentár k hre--");
-        CommentServiceJDBC commentServiceJDBC = new CommentServiceJDBC();
+        //CommentServiceJDBC commentServiceJDBC = new CommentServiceJDBC();
         scanner.nextLine();
         String message = scanner.nextLine();
         Comment comment = new Comment("Cube Roll", playerName, message, new Date());
-        commentServiceJDBC.addComment(comment);
+        commentService.addComment(comment);
+        //commentServiceJDBC.addComment(comment);
         System.out.println(PURPLE + "--Ďakujem za pridanie komentára--" + RESET);
     }
 
     private void handleRating(){
-        RatingServiceJDBC ratingServiceJDBC = new RatingServiceJDBC();
+        //RatingServiceJDBC ratingServiceJDBC = new RatingServiceJDBC();
         System.out.println( VIOLET + "==============================================================" + RESET);
         System.out.println(LIGHTPINK + "--Ohodnoť hru od " + RED + "1*(zlá)"+ LIGHTPINK + " do " + GREEN +"5*(super)" + LIGHTPINK +"--");
-        System.out.println("--Priemerné hodnotenie hry Cube Roll je "+ GREEN + ratingServiceJDBC.getAverageRating("Cube Roll") + YELLOW + "*" + RESET);
+        System.out.println("--Priemerné hodnotenie hry Cube Roll je "+ GREEN + ratingService.getAverageRating("Cube Roll") + YELLOW + "*" + RESET);
         scanner.nextLine();
         while (true) {
             int rated = scanner.nextInt();
 
             if (rated <= 5 && rated > 0) {
                 Rating rating = new Rating("Cube Roll", playerName, rated, new Date());
-                ratingServiceJDBC.setRating(rating);
+                //ratingServiceJDBC.setRating(rating);
+                ratingService.setRating(rating);
                 System.out.println(YELLOW + "--Ďakujem za hodnotenie hry Cube Roll--" + RESET);
                 break;
             }
@@ -357,10 +374,11 @@ public class ConsoleUI {
     }
     private void handleAllComments(){
         System.out.println( VIOLET + "==============================================================");
-        CommentServiceJDBC commentServiceJDBC = new CommentServiceJDBC();
-        List<Comment> allComments = commentServiceJDBC.getComments("Cube Roll");
+        //CommentServiceJDBC commentServiceJDBC = new CommentServiceJDBC();
+        //List<Comment> allComments = commentServiceJDBC.getComments("Cube Roll");
+        List<Comment> allComments = commentService.getComments("Cube Roll");
         for (Comment comment : allComments) {
-            System.out.println(RED + comment.getPlayer() + VIOLET +" komentoval dňa " + comment.getCommentedOn() + "\n" + LIGHTPINK + comment.getComment());
+            System.out.println(RED + comment.getPlayer() + VIOLET +" komentoval dňa " + comment.getCommented_on() + "\n" + LIGHTPINK + comment.getComment());
         }
         System.out.println(VIOLET+ "=== Toto su všetky komentáre ===");
         System.out.println(LIGHTPINK + "--Stlačte Enter pre pokračovanie--" + RESET);
@@ -387,6 +405,133 @@ public class ConsoleUI {
             this.gameState = GameState.RUNNING;
             movesCount = 0;
             field.setLivesCount(field.getLivesCount());
+
+    }
+    private void showMenu(){
+        //Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println(VIOLET + "====================="+ RESET);
+            System.out.println(RED + "   --- MENU ---" + RESET);
+            System.out.println(VIOLET + "====================="+ RESET);
+            System.out.println(LIGHTPINK + "1 - Začať novú hru -");
+            System.out.println("2 - Zobraziť pravidlá -");
+            System.out.println("3 - Ukončiť hru- ");
+            System.out.println("Vyber možnosť 1-3" + RESET);
+            System.out.println(VIOLET + "====================="+ RESET);
+            int choice;
+            try {
+                choice = scanner.nextInt();
+            } catch (Exception e) {
+                scanner.nextLine(); // Vyčisti vstup
+                System.out.println("Neplatná voľba, skús znova.");
+                continue;
+            }
+            switch (choice) {
+                case 1:
+                    startNewGame(scanner);
+                    break;
+                case 2:
+                    showRules(scanner);
+                    continue;
+                case 3:
+                    System.out.println(YELLOW + "Ďakujeme za hranie!" + RESET);
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println(LIGHTGREEN +"Neplatná voľba, skús znova." + RESET);
+                    //continue;
+
+            }
+            break;
+        }
+    }
+
+    private  void startNewGame(Scanner scanner){
+        System.out.println(VIOLET + "==================="+ RESET);
+        System.out.println(LIGHTPINK + "Zadaj meno hráča:" + RESET);
+
+        while(true) {
+            try {
+                playerName = scanner.next();
+                break;
+            } catch (Exception e) {
+                scanner.nextLine(); // Vyčisti vstup
+                System.out.println(LIGHTGREEN +"Neplatná voľba, skús znova." + RESET);
+
+            }
+        }
+        while (true){
+            System.out.println(VIOLET + "==================="+ RESET);
+            System.out.println(RED + " --- NOVÁ HRA ---");
+            System.out.println(VIOLET + "==================="+ RESET);
+            System.out.println(BLUE + "1 --TRAINING--");
+            System.out.println(YELLOW + "2 --ĽAHKÁ MAPA (4 ŽIVOTY)--");
+            System.out.println(GREEN + "3 --STREDNE TAŽKÁ MAPA (2 ŽIVOTY)--");
+            System.out.println(RED + "4 --ŤAŽKÁ MAPA(1 ŽIVOT)-- ");
+            System.out.println(LIGHTPINK + "Vyber možnosť 1-4");
+            System.out.println(VIOLET + "==================="+ RESET);
+
+
+            try {
+                map = scanner.nextInt();
+            } catch (Exception e) {
+                scanner.nextLine(); // Vyčisti vstup
+                System.out.println(LIGHTGREEN +"Neplatná voľba, skús znova." + RESET);
+                continue;
+            }
+
+
+            switch (map) {
+                case 1:
+                    field = MapFactory.createTrainMap();
+                    break;
+                case 2:
+                    field = MapFactory.createEasyMap();
+                    break;
+                case 3:
+                    field = MapFactory.createMediumMap();
+                    break;
+                case 4:
+                    field = MapFactory.createHardMap();
+                    break;
+                default:
+                    System.out.println(LIGHTGREEN +"Neplatná voľba, skús znova." + RESET);
+                    continue;
+            }
+
+            //Field field = new Field(5, 5, 1, 1, 3, 3);
+            //ConsoleUI ui = new ConsoleUI(field, choice, playerName);
+            //ui.play();
+            break;
+        }
+
+    }
+
+    private void showRules(Scanner scanner) {
+        System.out.println(RED + "\n=== PRAVIDLÁ HRY ===");
+        System.out.println(VIOLET + "==================="+ RESET);
+        System.out.println(LIGHTPINK + "🎲 Cieľ hry: Dostaň kocku na cieľovú dlaždicu so správnou stranou dole a s čo najmenším počtom ťahov.🎲");
+        System.out.println("❤️ Máš obmedzený počet životov. Na konci hry sa každý zostávajúci život premení na skóre.❤️");
+        System.out.println("🏆 Skóre sa vypočíta na základe:");
+        System.out.println("   - Počtu ťahov (čím menej tým viac skóre dostaneš).");
+        System.out.println("   - Počtu zostávajúcich životov (1 život = +10/+25/+50 bodov podla mapy).");
+        System.out.println(VIOLET + "==================="+ RESET);
+        System.out.println(RED + "--- Typy dlaždíc ---");
+        System.out.println(LIGHTPINK + "🧱  - Stena: Nedá sa ňou prejsť.");
+        System.out.println(LIGHTGREEN + "⬛  - Diera: Ak do nej spadneš, stratíš život.");
+        System.out.println(YELLOW + "🏁  - Cieľová dlaždica: Sem musíš dostať kocku.");
+        System.out.println(LIGHTPINK + "\n-- Chceš sa vrátiť do menu? (" + GREEN + "Y" + LIGHTPINK + " / " + RED + "N" + LIGHTPINK + "): " + RESET);
+        System.out.println(VIOLET + "==================="+ RESET);
+        while(true) {
+            char input = scanner.next().toUpperCase().charAt(0);
+            if (input == 'N') {
+                System.exit(0);
+            } else if (input == 'Y') {
+                break;
+            } else {
+                System.out.println(LIGHTGREEN+ "Neplatná voľba, skús znova." + RESET);
+            }
+        }
 
     }
 

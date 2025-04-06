@@ -23,7 +23,7 @@ public class ScoreServiceJDBC implements ScoreService {
             statement.setString(1, score.getGame());
             statement.setString(2, score.getPlayer());
             statement.setInt(3, score.getPoints());
-            statement.setTimestamp(4, new Timestamp(score.getPlayedOn().getTime()));
+            statement.setTimestamp(4, new Timestamp(score.getPlayed_on().getTime()));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ScoreException("Problem inserting score", e);

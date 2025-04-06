@@ -1,4 +1,4 @@
-package sk.tuke.kpi.kp.cube_roll.core;
+package sk.tuke.gamestudio.game.cube_roll.core;
 
 public class WallTile extends Tile{
     public WallTile(int row, int col) {

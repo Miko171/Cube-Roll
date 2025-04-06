@@ -10,9 +10,9 @@ public class CommentServiceJDBC implements CommentService {
     public static final String URL = "jdbc:postgresql://localhost/gamestudio";
     public static final String USER = "postgres";
     public static final String PASSWORD = "Miko171";
-    public static final String SELECT = "SELECT game, player, comment, commentedOn FROM comment WHERE game = ? ORDER BY commentedOn";
+    public static final String SELECT = "SELECT game, player, comment, commented_on FROM comment WHERE game = ? ORDER BY commented_on";
     public static final String DELETE = "DELETE FROM comment";
-    public static final String INSERT = "INSERT INTO comment (game, player, comment, commentedOn) VALUES (?, ?, ?, ?)";
+    public static final String INSERT = "INSERT INTO comment (game, player, comment, commented_on) VALUES (?, ?, ?, ?)";
 
     @Override
     public void addComment(Comment comment) throws CommentException {
@@ -22,7 +22,7 @@ public class CommentServiceJDBC implements CommentService {
             statement.setString(1, comment.getGame());
             statement.setString(2, comment.getPlayer());
             statement.setString(3, comment.getComment());
-            statement.setTimestamp(4, new Timestamp(comment.getCommentedOn().getTime()));
+            statement.setTimestamp(4, new Timestamp(comment.getCommented_on().getTime()));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ScoreException("Problem inserting comment", e);

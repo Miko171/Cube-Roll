@@ -1,8 +1,8 @@
-package sk.tuke.kpi.kp.cube_roll;
+package sk.tuke.gamestudio.game.cube_roll;
 
-import sk.tuke.kpi.kp.cube_roll.consoleui.ConsoleUI;
-import sk.tuke.kpi.kp.cube_roll.core.Field;
-import sk.tuke.kpi.kp.cube_roll.core.MapFactory;
+import sk.tuke.gamestudio.game.cube_roll.consoleui.ConsoleUI;
+import sk.tuke.gamestudio.game.cube_roll.core.Field;
+import sk.tuke.gamestudio.game.cube_roll.core.MapFactory;
 
 import java.util.Scanner;
 
@@ -110,8 +110,8 @@ public class CubeRoll {
             }
 
             //Field field = new Field(5, 5, 1, 1, 3, 3);
-            ConsoleUI ui = new ConsoleUI(field, choice, playerName);
-            ui.play();
+            //ConsoleUI ui = new ConsoleUI(field, choice, playerName);
+            //ui.play();
             break;
         }
 

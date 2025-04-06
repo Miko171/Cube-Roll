@@ -1,4 +1,4 @@
-package sk.tuke.kpi.kp.cube_roll.core;
+package sk.tuke.gamestudio.game.cube_roll.core;
 
 public class VoidTile extends Tile{
     public VoidTile(int row, int col) {

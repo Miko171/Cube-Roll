@@ -36,7 +36,7 @@ If you are using a custom PostgreSQL username and password, update the database 
 Make sure PostgreSQL is running and the 'gamestudio' database is set up before launching the game.
 ## Usage
 
-You can run the game by executing [CubeRoll.java](src/main/java/sk/tuke/kpi/kp/cube_roll/CubeRoll.java)file in your IDE. You will be presented with a menu if u need to know rules u can load them or jump into the game starting with your name, after which you will select a map. Each map is fully solvable in the least amount of moves possible. Based on the amount of moves, you will be rewarded with a score. While playing, you can also view and add comments for game, view top scores, rate the game, restart map or go back to main menu.
+You can run the game by executing [CubeRoll.java](src/main/java/sk/tuke/gamestudio/game/cube_roll/CubeRoll.java)file in your IDE. You will be presented with a menu if u need to know rules u can load them or jump into the game starting with your name, after which you will select a map. Each map is fully solvable in the least amount of moves possible. Based on the amount of moves, you will be rewarded with a score. While playing, you can also view and add comments for game, view top scores, rate the game, restart map or go back to main menu.
 
 
 ## Commands

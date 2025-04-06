@@ -1,6 +1,8 @@
+package sk.tuke.gamestudio;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sk.tuke.kpi.kp.cube_roll.core.Dice;
+import sk.tuke.gamestudio.game.cube_roll.core.Dice;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -8,6 +8,10 @@ Welcome to Cube Roll. The point of the game is to roll dice with one colored sid
 - __Java__ (21 or later)  
 - __PostgreSQL__ (make sure your version is matching the version in pom.xml) 
 - __Maven__ (latest)
+- __Spring Boot__(latest)
+- __Spring Data JPA__(latest)
+- __Spring WEB REST__(latest)
+
 ## Database
 
 This game uses PostgreSQL database 'gamestudio' that has following tables with following columns:
@@ -36,7 +40,8 @@ If you are using a custom PostgreSQL username and password, update the database 
 Make sure PostgreSQL is running and the 'gamestudio' database is set up before launching the game.
 ## Usage
 
-You can run the game by executing [CubeRoll.java](src/main/java/sk/tuke/gamestudio/game/cube_roll/CubeRoll.java)file in your IDE. You will be presented with a menu if u need to know rules u can load them or jump into the game starting with your name, after which you will select a map. Each map is fully solvable in the least amount of moves possible. Based on the amount of moves, you will be rewarded with a score. While playing, you can also view and add comments for game, view top scores, rate the game, restart map or go back to main menu.
+You can run the game by executing [GameStudioServe.java](src/main/java/sk/tuke/gamestudio/server/GameStudioServer.java)
+file in your IDE to start Server part and after inicializing execute [SpringClient.java](src/main/java/sk/tuke/gamestudio/SpringClient.java) as klient part of game. You will be presented with a menu if u need to know rules u can load them or jump into the game starting with your name, after which you will select a map. Each map is fully solvable in the least amount of moves possible. Based on the amount of moves, you will be rewarded with a score. While playing, you can also view and add comments for game, view top scores, rate the game, restart map or go back to main menu.
 
 
 ## Commands
@@ -60,3 +65,4 @@ You can run the game by executing [CubeRoll.java](src/main/java/sk/tuke/gamestud
 
 Here you can see a quick video of gameplay:
 - [https://youtu.be/4xulTef4cdo](https://youtu.be/4xulTef4cdo)
+- [https://youtu.be/JUrTCPG73kE](https://youtu.be/JUrTCPG73kE) JPA/REST

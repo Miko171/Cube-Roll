@@ -1,0 +1,132 @@
+
+body {
+    background-color: #ffffff;
+    font-size: 1rem;
+    font-family: Arial, "Arial CE", "Helvetica CE", sans-serif;
+    color: #000000;
+    max-width: 30rem;
+
+    padding: 1em;
+}
+
+h1 {
+    font-size: 1.6em
+}
+
+h2 {
+    font-size: 1.4em
+}
+
+h3 {
+    font-size: 1.2em
+}
+
+a:link, a:visited {
+    color: #045491;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover {
+    color: #045491;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/*Properties of the form elements*/
+
+label {
+    vertical-align: top;
+    display: inline-block; /*instead of inline (default)*/
+    min-width: 5em;
+}
+
+
+
+
+
+table.scores th {
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: royalblue;
+
+}
+
+table.scores tr:nth-child(even) {
+    background-color: lightskyblue;
+}
+
+table.scores tr:nth-child(odd) {
+    background-color: white;
+}
+a.abutton {
+    border: 1px solid darkslategrey;
+    display: inline-block;
+    width: 8em;
+    margin: 0.1em;
+    padding: 0.1em;
+    border-radius: 0.2em;
+    background-color: white;
+    font-weight: normal;
+}
+
+a.abutton:hover {
+    background-color: springgreen;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+
+/*table.minefield td.mine {
+    background-color: red;
+    background-image: url("/images/mines/mine.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+}*/
+
+
+
+/*table.minefield td.marked {
+    background-color: coral;
+    background-image: url("/images/mines/flag.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+}
+
+table.minefield td.marked span {
+    display: none;
+}*/
+
+.dicesides {
+    border-collapse: collapse;
+    border: none;
+}
+
+.dicesides td {
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-align: center;
+}
+
+
+
+/*@keyframes explosion{
+    from {
+        background-image: none;
+        background-color: white;
+    }
+    20%{
+        background-color: darkgray;
+    }
+    30%{
+        background-color: yellow;
+    }
+    to{
+        background-color: red;
+        background-image: url("/images/mines/mine.svg");
+    }
+}
+*/

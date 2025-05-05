@@ -18,17 +18,17 @@ public class User implements Serializable {
     private String username;
     private String password;
 
-    // Default constructor
+    // Defaultny constructor
     public User() {
     }
 
-    // Parameterized constructor
+    // Parameterovy constructor
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    // Getters and setters
+    // Gettery and settery
     public int getId() {
         return id;
     }

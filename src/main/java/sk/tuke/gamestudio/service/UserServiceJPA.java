@@ -9,9 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sk.tuke.gamestudio.entity.User;
 
-/**
- * JPA implementation of the UserService interface.
- */
 @Service
 public class UserServiceJPA implements UserService {
 
@@ -56,7 +53,7 @@ public class UserServiceJPA implements UserService {
             query.setParameter("username", username);
             return query.getSingleResult();
         } catch (Exception e) {
-            return null; // No user found or multiple users found
+            return null; // ziadny alebo viacero users
         }
     }
 

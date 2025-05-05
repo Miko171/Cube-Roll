@@ -12,9 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import sk.tuke.gamestudio.entity.User;
 import sk.tuke.gamestudio.service.UserService;
 
-/**
- * Controller for user authentication and profile management.
- */
+
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class UserController {
@@ -24,17 +22,13 @@ public class UserController {
 
     private User loggedUser;
 
-    /**
-     * Display the login page.
-     */
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
 
-    /**
-     * Process user login.
-     */
+
     @PostMapping("/login")
     public String processLogin(@RequestParam String username,
                                @RequestParam String password,
@@ -62,19 +56,19 @@ public class UserController {
                                       @RequestParam String password,
                                       @RequestParam String confirmPassword,
                                       Model model) {
-        // Check if passwords match
+        // Check ci hesla sedia
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match");
             return "register";
         }
 
-        // Check if username already exists
+        // Check ci je uz v databaze
         if (userService.findByUsername(username) != null) {
             model.addAttribute("error", "Username already exists");
             return "register";
         }
 
-        // Create new user
+        // vytvor noveho usera
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // In a real application, this should be hashed
@@ -82,10 +76,10 @@ public class UserController {
 
         userService.register(newUser);
 
-        // Log the user in
+        // prihlas usera
         this.loggedUser = newUser;
 
-        // Redirect directly to CubeRoll instead of menu
+
         return "redirect:/CubeRoll";
     }
 

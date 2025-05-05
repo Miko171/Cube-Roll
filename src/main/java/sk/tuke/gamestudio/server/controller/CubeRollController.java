@@ -359,7 +359,7 @@ public class CubeRollController {
 
     @PostMapping("/addRating")
     public String addRating(@RequestParam int rating) {
-        // Check if user is logged in
+        // Check ci je prihlaseny
         if (!userController.isLoggedIn()) {
             return "redirect:/login";
         }

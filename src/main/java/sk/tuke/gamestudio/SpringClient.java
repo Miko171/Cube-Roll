@@ -11,16 +11,23 @@ import org.springframework.web.client.RestTemplate;
 import sk.tuke.gamestudio.game.cube_roll.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.service.*;
 
-@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
-        pattern = "sk.tuke.gamestudio.server.*"))
 @SpringBootApplication
+@ComponentScan(
+        basePackages = "sk.tuke.gamestudio",
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.REGEX,
+                pattern = "sk.tuke.gamestudio.server.*"
+        )
+)
 public class SpringClient {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(SpringClient.class).web(WebApplicationType.NONE).run(args);
+        new SpringApplicationBuilder(SpringClient.class)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
 
-    //@Bean
+    @Bean
     public CommandLineRunner runner(ConsoleUI ui) {
         return args -> ui.play();
     }
@@ -30,29 +37,23 @@ public class SpringClient {
         return new ConsoleUI();
     }
 
-
     @Bean
     public ScoreService scoreService() {
-        //return new ScoreServiceJPA();
         return new ScoreServiceRestClient();
     }
 
-
     @Bean
     public RatingService ratingService() {
-        //return new RatingServiceJPA();
         return new RatingServiceRestClient();
     }
 
     @Bean
     public CommentService commentService() {
-        //return new CommentServiceJPA();
         return new CommentServiceRestClient();
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
 }

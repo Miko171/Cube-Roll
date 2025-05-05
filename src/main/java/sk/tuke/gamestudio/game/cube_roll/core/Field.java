@@ -103,6 +103,10 @@ public class Field {
         }
 
     }
+
+    public void loseLifeHtml(){
+        livesCount--;
+    }
     // Pohyb kocky po fielde
     public void moveDice(char direction){
         lastDirection = direction;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Header -->
+<header th:fragment="header">
+    <h1>Welcome to <a href="/">Gamestudio!</a></h1>
+
+    <!--/*@thymesVar id="userController" type="sk.tuke.gamestudio.server.controller.UserController"*/-->
+    <div th:if="${@userController.logged}">
+        Logged as: <span th:text="${@userController.loggedUser.login}"/>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div th:if="not ${@userController.logged}">
+        Not logged. Please
+        <a href="/">login</a>.
+    </div>
+</header>
+
+<!-- Footer -->
+<footer th:fragment="footer">
+    <hr/>
+    <span>&copy; 2023 Gamestudio was developed at <a href="http://kpi.fei.tuke.sk">KPI FEI TUKE</a></span><br/>
+</footer>
+
+<!-- Minefield generated with thymeleaf -->
+<!--/*@thymesVar id="field" type="sk.tuke.gamestudio.game.mines.core.Field"*/-->
+<table th:fragment="field(path)" class="minefield">
+    <tr th:each="row : ${#numbers.sequence(0, field.rowCount - 1)}">
+        <td th:each="column : ${#numbers.sequence(0, field.columnCount - 1)}"
+            th:with="tile = ${field.getTile(row, column)}"
+            th:class="${tile.style}">
+            <a th:href="${'/' + path + '?row=' + row + '&column=' + column}">
+                <span th:text="${tile}"/>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<!-- Scores table -->
+<!--/*@thymesVar id="scores" type="java.util.List<sk.tuke.gamestudio.entity.Score>"*/-->
+<table th:fragment="scores" class="scores">
+    <tr>
+        <th>No.</th>
+        <th>Player</th>
+        <th>Score</th>
+        <th>Date</th>
+    </tr>
+    <tr th:each="score, it : ${scores}">
+        <td th:text="${it.index + 1}"/>
+        <td th:text="${score.player}"/>
+        <td th:text="${score.value}"/>
+        <td th:text="${#dates.format(score.playedAt, 'd.M.yyyy HH:mm')}"/>
+    </tr>
+</table>
+</html>

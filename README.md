@@ -42,6 +42,8 @@ Make sure PostgreSQL is running and the 'gamestudio' database is set up before l
 
 You can run the game by executing [GameStudioServe.java](src/main/java/sk/tuke/gamestudio/server/GameStudioServer.java)
 file in your IDE to start Server part and after inicializing execute [SpringClient.java](src/main/java/sk/tuke/gamestudio/SpringClient.java) as klient part of game. You will be presented with a menu if u need to know rules u can load them or jump into the game starting with your name, after which you will select a map. Each map is fully solvable in the least amount of moves possible. Based on the amount of moves, you will be rewarded with a score. While playing, you can also view and add comments for game, view top scores, rate the game, restart map or go back to main menu.
+Alternatively you can run the game in web browser by executing [GameStudioServe.java](src/main/java/sk/tuke/gamestudio/server/GameStudioServer.java) then going to http://localhost:8080/login in your browser. Unlike in IDE, you will have to log in. If your username does not yet exist you will need to register first. After login you will see 3 panels first is gamefield, controlls and chance to leave comment, second panel is Top 10 scores with chance to rate game and third panel which you can access comments. You can also change maps, restart the level or loggout if needed. 
+
 
 
 ## Commands
@@ -66,3 +68,4 @@ file in your IDE to start Server part and after inicializing execute [SpringClie
 Here you can see a quick video of gameplay:
 - [https://youtu.be/4xulTef4cdo](https://youtu.be/4xulTef4cdo)
 - [https://youtu.be/JUrTCPG73kE](https://youtu.be/JUrTCPG73kE) JPA/REST
+- [https://youtu.be/Frv9U8pYZeI](https://youtu.be/Frv9U8pYZeI) WEB

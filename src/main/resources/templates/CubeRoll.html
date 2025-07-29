@@ -177,6 +177,7 @@
     <a href="/CubeRoll/medium">Medium Map</a> |
     <a href="/CubeRoll/hard">Hard Map</a> |
     <a href="/CubeRoll/restart">Restart</a> |
+    <a href="/CubeRoll/undo">Undo</a> |
 
     <span th:if="${@userController.isLoggedIn()}">
         <a href="/logout">Logout</a>
@@ -212,6 +213,8 @@
             <span th:utext="${@cubeRollController.getHtmlField()}"></span>
 
             <h3>Lives: <span th:utext="${@cubeRollController.getLivesCount()}"></span></h3>
+            <h3>Moves: <span th:utext="${@cubeRollController.getMovesCount()}"></span></h3>
+
             <!-- Controls and dice sides -->
             <span style="display: inline-block; margin-top: -32px;" th:utext="${@cubeRollController.getControlsHtml()}"></span>
             <span style="display: inline-block;" th:utext="${@cubeRollController.getDiceSideshtml()}"></span>

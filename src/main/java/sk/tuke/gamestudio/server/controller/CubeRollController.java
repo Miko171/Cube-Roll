@@ -17,7 +17,9 @@ import sk.tuke.gamestudio.service.CommentService;
 import sk.tuke.gamestudio.service.RatingService;
 import sk.tuke.gamestudio.service.ScoreService;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -29,6 +31,9 @@ public class CubeRollController {
     private GameState gameState = GameState.RUNNING;
     private int map = 1;
     private int movesCount;
+    private int undoCount = 5;
+
+    private List<Character> history = new ArrayList<Character>();
 
     @Autowired
     private ScoreService scoreService;
@@ -64,6 +69,14 @@ public class CubeRollController {
                     case "A" -> field.moveDice('A');
                     case "D" -> field.moveDice('D');
                 }
+                history.add(direction.charAt(0));
+                /*if (history.size() > 4) {
+                    history.remove(0);
+                    history.add(direction.charAt(0));
+                }
+                else{
+
+                }*/
                 movesCount++;
             }
         }
@@ -91,6 +104,14 @@ public class CubeRollController {
     public String getLivesCount() {
         return Integer.toString(field.getLivesCount());
     }
+
+    public String getMovesCount() {
+        return Integer.toString(movesCount);
+    }
+
+    /*private String getUndoCount() {
+        return Integer.toString(undoCount);
+    }*/
 
 
     public String getHtmlField() {
@@ -264,6 +285,9 @@ public class CubeRollController {
         field = MapFactory.createTrainMap();
         gameState = GameState.RUNNING;
         movesCount = 0;
+
+        history.clear();
+        undoCount = 5;
         return "CubeRoll";
     }
 
@@ -278,6 +302,8 @@ public class CubeRollController {
         field = MapFactory.createEasyMap();
         gameState = GameState.RUNNING;
         movesCount = 0;
+        history.clear();
+        undoCount = 5;
         return "CubeRoll";
     }
 
@@ -292,6 +318,8 @@ public class CubeRollController {
         field = MapFactory.createMediumMap();
         gameState = GameState.RUNNING;
         movesCount = 0;
+        history.clear();
+        undoCount = 5;
         return "CubeRoll";
     }
 
@@ -306,6 +334,9 @@ public class CubeRollController {
         field = MapFactory.createHardMap();
         gameState = GameState.RUNNING;
         movesCount = 0;
+
+        history.clear();
+        undoCount = 5;
         return "CubeRoll";
     }
 
@@ -334,7 +365,9 @@ public class CubeRollController {
         }
         gameState = GameState.RUNNING;
         movesCount = 0;
+        undoCount = 5;
 
+        history.clear();
         return "CubeRoll";
     }
 
@@ -408,5 +441,48 @@ public class CubeRollController {
             default:
                 return -1;
         }
+    }
+
+    public void undoLastMove(){
+        if (!history.isEmpty() && gameState.equals(GameState.RUNNING) && undoCount != 0) {
+            history.remove(history.size() - 1);
+            switch (map) {
+                case 1:
+                    field = MapFactory.createTrainMap();
+                    break;
+                case 2:
+                    field = MapFactory.createEasyMap();
+                    break;
+                case 3:
+                    field = MapFactory.createMediumMap();
+                    break;
+                case 4:
+                    field = MapFactory.createHardMap();
+                    break;
+                default:
+                    break;
+            }
+            gameState = GameState.RUNNING;
+            movesCount = 0;
+            undoCount--;
+
+            for (char move : history) {
+                field.moveDice(move);
+                movesCount++;
+            }
+        }
+
+
+    }
+
+    @RequestMapping("/undo")
+    public String undo() {
+        // Check ci je prihlaseny
+        if (!userController.isLoggedIn()) {
+            return "redirect:/login";
+        }
+
+        undoLastMove();
+        return "redirect:/CubeRoll";
     }
 }
